@@ -7,7 +7,7 @@ while(True):
     screenshot = pyautogui.screenshot()
 
     screenshot = np.array(screenshot)
-    screenshot = screenshot[:, :, ::-1].copy()
+    screenshot = cv.cvtColor(screenshot, cv.COLOR_RGB2BGR)
 
     cv.imshow('Computer Vision', screenshot)
 
