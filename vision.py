@@ -1,18 +1,8 @@
-from operator import ne
 import cv2 as cv
-from cv2 import threshold
-from cv2 import MARKER_CROSS
 import numpy as np
-import os
 
-cwd = os.getcwd()
+def findClickPositions(needle_img_path, haystack_img, method=cv.TM_SQDIFF_NORMED, threshold=0.05, debug_mode=None):
 
-h_path = os.path.join(cwd, 'lostark.jpg')
-n_path = os.path.join(cwd, 'fishing.jpg')
-
-def findClickPositions(needle_img_path, haystack_img_path, method=cv.TM_CCOEFF_NORMED, threshold=0.05, debug_mode=None):
-    
-    haystack_img = cv.imread(haystack_img_path, cv.IMREAD_UNCHANGED)
     needle_img = cv.imread(needle_img_path, cv.IMREAD_UNCHANGED)
         
     # get dimensions of the needle image
@@ -40,7 +30,7 @@ def findClickPositions(needle_img_path, haystack_img_path, method=cv.TM_CCOEFF_N
 
     points = []
     if len(rectangles):
-        print('Catch Fish')
+        # print('Catch Fish')
 
         line_colour = (0, 255, 0)
         line_type = cv.LINE_4
@@ -67,12 +57,9 @@ def findClickPositions(needle_img_path, haystack_img_path, method=cv.TM_CCOEFF_N
             elif debug_mode == 'points':
                 cv.drawMarker(haystack_img, (center_x, center_y), marker_colour, marker_type)
 
-        if debug_mode:
-            cv.imshow('Matches', haystack_img)
-            cv.waitKey()
-            #cv.imwrite('result.jpg', haystack_img)
+    if debug_mode:
+        cv.imshow('Matches', haystack_img)
+        # cv.waitKey()
+        #cv.imwrite('result.jpg', haystack_img)
     
     return points
-
-points = findClickPositions(n_path, h_path, method=cv.TM_CCOEFF_NORMED, threshold=0.95, debug_mode='points')
-print(points)
