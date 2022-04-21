@@ -7,8 +7,8 @@ import os
 
 cwd = os.getcwd()
 
-h_path = os.path.join(cwd, 'LostArk', 'lostark.jpg')
-n_path = os.path.join(cwd, 'LostArk', 'fishing.jpg')
+h_path = os.path.join(cwd, 'lostark.jpg')
+n_path = os.path.join(cwd, 'fishing.jpg')
 
 def findClickPositions(needle_img_path, haystack_img_path, method=cv.TM_CCOEFF_NORMED, threshold=0.05, debug_mode=None):
     
