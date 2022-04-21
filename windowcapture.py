@@ -18,13 +18,13 @@ class WindowCapture:
         if not self.hwnd:
             raise Exception(f'Window not found: {window_name}')
 
-        # define your monitor width and height
-        self.w = 1920
-        self.h = 1080
+        # get the window size
+        window_rect = win32gui.GetWindowRect(self.hwnd)
+        self.w = window_rect[2] - window_rect[0]
+        self.h = window_rect[3] - window_rect[1]
 
         # define debug file name
         self.bmp_debug = "debug.bmp"
-
 
     def get_screenshot(self):
         '''
@@ -56,3 +56,15 @@ class WindowCapture:
         img = np.ascontiguousarray(img)
 
         return img
+
+    # translate a pixel position on a screenshot image to a pixel position on the screen. 
+    # Only needed if cropped screen is used
+    # def get_screen_position(self, pos):
+    #     return (pos[0] + self.offset_x, pos[1] + self.offset_y)
+
+    @staticmethod
+    def list_window_names():
+        def winEnumHandler(hwnd, ctx):
+            if win32gui.IsWindowVisible(hwnd):
+                print(hex(hwnd), win32gui.GetWindowText(hwnd))
+        win32gui.EnumWindows(winEnumHandler, None)
