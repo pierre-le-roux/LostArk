@@ -11,12 +11,16 @@ class WindowCapture:
     hwnd = None    
     bmp_debug = ""
 
-    def __init__(self, window_name):
+    def __init__(self, window_name=None):
 
         # find the handle for the window we want to capture
-        self.hwnd = win32gui.FindWindow(None, window_name)
-        if not self.hwnd:
-            raise Exception(f'Window not found: {window_name}')
+        # if no window name is given, capture the entire screen
+        if window_name is None:
+            self.hwnd = win32gui.GetDesktopWindow()
+        else:    
+            self.hwnd = win32gui.FindWindow(None, window_name)
+            if not self.hwnd:
+                raise Exception(f'Window not found: {window_name}')
 
         # get the window size
         window_rect = win32gui.GetWindowRect(self.hwnd)
