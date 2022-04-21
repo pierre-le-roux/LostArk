@@ -3,18 +3,24 @@ import numpy as np
 import os
 from time import time
 from windowcapture import WindowCapture
+from vision import findClickPositions
 
-WindowCapture.list_window_names()
-exit() 
+# WindowCapture.list_window_names()
+# exit() 
+
+cwd = os.getcwd()
 
 wincap = WindowCapture('LOST ARK (64-bit, DX11) v.2.2.1.1')
+
+n_path = os.path.join(cwd, 'fishing.jpg')
 
 loop_time = time()
 while(True):
 
     screenshot = wincap.get_screenshot()
 
-    cv.imshow('Computer Vision', screenshot)
+    # cv.imshow('Computer Vision', screenshot)
+    findClickPositions(n_path, screenshot, debug_mode='rectangles')
 
     # measure fps
     print('FPS {}'.format(1 / (time() - loop_time)))
