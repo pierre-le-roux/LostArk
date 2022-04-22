@@ -11,7 +11,7 @@ from pynput.keyboard import Key, Controller
 
 cwd = os.getcwd()
 
-wincap = WindowCapture('LOST ARK (64-bit, DX11) v.2.2.1.1')
+wincap = WindowCapture('LOST ARK (64-bit, DX11) v.2.2.1.2')
 
 n_path = os.path.join(cwd, 'fishing.jpg')
 
@@ -19,8 +19,10 @@ n_path = os.path.join(cwd, 'fishing.jpg')
 keyboard = Controller()
 print('wait 5 sec')
 sleep(5)
-
+# keyboard.press('s')
+# keyboard.release('s')
 while(True):
+    sleep(5)
     keyboard.press('e')
     keyboard.release('e')
 
